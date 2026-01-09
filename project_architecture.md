@@ -1,6 +1,6 @@
 # Sartor Ad Engine: Project Architecture
 
-> **Version:** 1.0  
+> **Version:** 1.1  
 > **Date:** 2026-01-09  
 > **Status:** Approved for POC Development  
 
@@ -8,7 +8,10 @@
 
 ## Executive Summary
 
-This document defines the architecture for **Sartor Ad Engine**, an automated system that generates high-fidelity static advertisements personalized for specific customer segments. The engine takes a Product Catalog Item as input and produces ready-to-deploy static ad creatives tailored to distinct Ideal Customer Profiles (ICPs).
+This document defines the architecture for **Sartor Ad Engine**, an automated system that generates high-fidelity static advertisements for **eCommerce products** personalized for specific customer segments. The engine takes a Product Catalog Item as input and produces ready-to-deploy static ad creatives tailored to distinct Ideal Customer Profiles (ICPs).
+
+> [!NOTE]
+> **Scope:** This system is designed for **physical goods sold via eCommerce** (DTC brands, online retailers, marketplaces). SaaS, services, and digital-only products are out of scope for this POC.
 
 ### Core Design Principles
 
@@ -17,6 +20,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 3. **Separation of Concerns** — Each agent has a single, well-defined responsibility with no overlap.
 4. **Deterministic Composition** — Text rendering is handled programmatically, not by image generation models.
 5. **Authentic Product Representation** — Actual product images from the catalog are used, not AI-generated approximations, ensuring customer trust and legal compliance.
+6. **Flexible Brand Model** — Supports both DTC (single brand) and multi-brand retailers (store + product brands) with explicit brand hierarchy strategy.
 
 ---
 
@@ -26,13 +30,19 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              SYSTEM INPUT                                   │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐              │
-│  │ Product Data    │  │ Brand Context   │  │ Channel Context │              │
+│  │ Product Data    │  │ Store Brand     │  │ Channel Context │              │
 │  │ - Name, SKU     │  │ - Brand Voice   │  │ - Placement     │              │
 │  │ - Description   │  │ - Visual Style  │  │ - Dimensions    │              │
 │  │ - Features      │  │ - Color Palette │  │ - Text Limits   │              │
 │  │ - Price         │  │ - Logo Asset    │  │ - Audience Fit  │              │
 │  │ - Category      │  │ - Tone Keywords │  │                 │              │
 │  └─────────────────┘  └─────────────────┘  └─────────────────┘              │
+│                                                                             │
+│  ┌───────────────────────────┐  ┌───────────────────────────────┐           │
+│  │ Product Brand (Optional)  │  │ Brand Strategy                │           │
+│  │ - If distinct from store  │  │ - store_dominant | product_   │           │
+│  │ - Own visual identity     │  │   dominant | co_branded       │           │
+│  └───────────────────────────┘  └───────────────────────────────┘           │
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────┐            │
 │  │ Store Context (Optional)                                    │            │
@@ -100,19 +110,49 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 | `images` | list[string] | Product image URLs |
 | `metadata` | object | Any additional attributes |
 
-### 2. Brand Context (Required)
+### 2. Store Brand (Required)
+
+The **store brand** is the retailer or store running the ads. This is always required.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `brand_name` | string | Company/brand name |
+| `brand_name` | string | Store/retailer name |
 | `brand_voice` | string | Description of brand personality (e.g., "Premium, minimalist, tech-forward") |
 | `tone_keywords` | list[string] | Adjectives defining tone (e.g., ["confident", "aspirational", "warm"]) |
 | `visual_style` | string | Visual identity description (e.g., "Clean lines, dark backgrounds, bold typography") |
 | `color_palette` | object | `{ primary, secondary, accent, background }` hex codes |
-| `logo_url` | string | Brand logo asset URL |
-| `tagline` | string | Brand tagline (if applicable) |
+| `logo_url` | string | Store logo asset URL |
+| `tagline` | string | Store tagline (if applicable) |
 
-### 3. Channel Context (Required)
+### 3. Product Brand (Optional)
+
+The **product brand** is the manufacturer or product-level brand identity. Only required if the product has a distinct brand from the store (e.g., Sony products sold at Best Buy).
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `brand_name` | string | Manufacturer/product brand name |
+| `brand_voice` | string | Product brand personality |
+| `tone_keywords` | list[string] | Tone adjectives |
+| `visual_style` | string | Product brand visual identity |
+| `color_palette` | object | Product brand colors |
+| `logo_url` | string | Product brand logo URL |
+| `tagline` | string | Product brand tagline (if applicable) |
+
+### 4. Brand Strategy (Required)
+
+Defines how store and product brands should be balanced in the ad creative.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `strategy` | enum | `"store_dominant"` \| `"product_dominant"` \| `"co_branded"` |
+
+| Strategy | When to Use | Visual Result |
+|----------|-------------|---------------|
+| `store_dominant` | DTC, or retailer selling unbranded/weak-brand products | Ad uses store's visual identity, logo, tone |
+| `product_dominant` | Retailer selling strong product brands (Sony, Nike) | Ad looks like a product brand ad, with "Available at [Store]" |
+| `co_branded` | Partnerships, exclusives, collaborations | Both logos, blended visual identity |
+
+### 5. Channel Context (Required)
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -122,7 +162,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 | `text_constraints` | object | `{ headline_max_chars, body_max_chars, cta_max_chars }` |
 | `audience_context` | string | Platform-specific audience notes |
 
-### 4. Store Context (Optional)
+### 6. Store Context (Optional)
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -141,7 +181,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 
 | Attribute | Specification |
 |-----------|---------------|
-| **Input** | Product Data, Brand Context, Store Context |
+| **Input** | Product Data, Store Brand, Product Brand (if applicable), Brand Strategy, Store Context |
 | **Output** | List of 2-4 ICPs with structured profiles |
 | **Tools** | Web search for market research |
 | **LLM** | High-reasoning model (e.g., Gemini 2.0 Flash Thinking) |
@@ -184,7 +224,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 
 | Attribute | Specification |
 |-----------|---------------|
-| **Input** | Full accumulated state (Product, Brand, Channel, ICP) |
+| **Input** | Full accumulated state (Product, Store Brand, Product Brand, Brand Strategy, Channel, ICP) |
 | **Output** | Strategic Brief per ICP |
 | **LLM** | High-reasoning model (e.g., Gemini 2.0 Pro, Claude Sonnet) |
 
@@ -211,7 +251,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 
 | Attribute | Specification |
 |-----------|---------------|
-| **Input** | Full accumulated state (Product, Brand, Channel, ICP, Strategy) |
+| **Input** | Full accumulated state (Product, Store Brand, Product Brand, Brand Strategy, Channel, ICP, Strategy) |
 | **Output** | Creative Concept per ICP |
 | **LLM** | Creative-capable model (e.g., Claude Sonnet, GPT-4o) |
 
@@ -243,7 +283,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 
 | Attribute | Specification |
 |-----------|---------------|
-| **Input** | Full accumulated state (Product, Brand, Channel, ICP, Strategy, Concept) |
+| **Input** | Full accumulated state (Product, Store Brand, Product Brand, Brand Strategy, Channel, ICP, Strategy, Concept) |
 | **Output** | Ad Copy per ICP |
 | **LLM** | Strong language model (e.g., Gemini 2.0 Flash, Claude Sonnet) |
 
@@ -275,7 +315,7 @@ This document defines the architecture for **Sartor Ad Engine**, an automated sy
 
 | Attribute | Specification |
 |-----------|---------------|
-| **Input** | Full accumulated state (Product, Brand, Channel, ICP, Strategy, Concept, Copy) |
+| **Input** | Full accumulated state (Product, Store Brand, Product Brand, Brand Strategy, Channel, ICP, Strategy, Concept, Copy) |
 | **Output** | Background scene image (no text, no product) |
 | **Model** | Image generation model (e.g., Imagen 3, Flux 1.1 Pro) |
 
@@ -329,9 +369,11 @@ All agents read from and write to a single `AdCreationState` object:
 class AdCreationState:
     # Inputs (immutable after initialization)
     product: ProductData
-    brand: BrandContext
+    store_brand: BrandContext
+    product_brand: BrandContext | None  # Only if distinct from store
+    brand_strategy: BrandStrategy  # "store_dominant" | "product_dominant" | "co_branded"
     channel: ChannelContext
-    store: StoreContext | None
+    store_context: StoreContext | None
     
     # Agent Outputs (populated sequentially)
     icps: list[ICP] = field(default_factory=list)
@@ -353,7 +395,8 @@ class AdCreationState:
 ┌────────────────────────────────────────────────────────────────────┐
 │                         AdCreationState                            │
 ├────────────────────────────────────────────────────────────────────┤
-│ INIT:    product, brand, channel, store                            │
+│ INIT:    product, store_brand, product_brand, brand_strategy,      │
+│          channel, store_context                                    │
 ├────────────────────────────────────────────────────────────────────┤
 │ AFTER SEGMENTATION:  + icps                                        │
 ├────────────────────────────────────────────────────────────────────┤
@@ -376,7 +419,7 @@ class AdCreationState:
 ```mermaid
 flowchart TD
     subgraph Input
-        A[Product + Brand + Channel + Store Context]
+        A[Product + Store Brand + Product Brand + Brand Strategy + Channel]
     end
     
     subgraph Segmentation
@@ -455,6 +498,10 @@ flowchart TD
 
 > **Rationale:** For eCommerce, customers must see the exact product they're purchasing. AI-generated product representations risk inaccuracy (wrong color, shape, details), erode customer trust, and may create legal/compliance issues. The Design Agent generates only the background context; the Composition Module overlays the authentic product image from the catalog.
 
+### Decision 7: Flexible Brand Hierarchy
+
+> **Rationale:** eCommerce spans multiple business models: DTC brands (store = product brand), multi-brand retailers (store ≠ product brand), and collaborations. Rather than forcing one model, we support all three via explicit `brand_strategy`. This determines which brand's visual identity and tone dominate the ad, with clear rules for logo placement and secondary brand mentions.
+
 ---
 
 ## Appendix A: Glossary
@@ -467,12 +514,15 @@ flowchart TD
 | **Strategic Brief** | A document defining the positioning, key benefit, proof points, and tone for a specific ICP |
 | **Scene Image** | The visual background/environment of an ad, generated without text |
 | **Composition** | The process of overlaying text onto a scene image to produce a final ad |
+| **Store Brand** | The retailer/store identity running the ads (always present) |
+| **Product Brand** | The manufacturer/product brand identity (only if distinct from store) |
+| **Brand Strategy** | How store and product brands are balanced: store_dominant, product_dominant, or co_branded |
 
 ---
 
-## Appendix B: Example Input/Output (Reference)
+## Appendix B: Example Inputs (Reference)
 
-### Example Input
+### Example 1: DTC Brand (Store = Product Brand)
 
 ```json
 {
@@ -483,12 +533,15 @@ flowchart TD
     "price": { "value": 349, "currency": "USD" },
     "category": "Electronics > Audio > Headphones"
   },
-  "brand": {
+  "store_brand": {
     "brand_name": "SoundScale",
     "brand_voice": "Premium, tech-forward, minimalist",
     "tone_keywords": ["confident", "innovative", "refined"],
-    "color_palette": { "primary": "#1A1A2E", "accent": "#E94560" }
+    "color_palette": { "primary": "#1A1A2E", "accent": "#E94560" },
+    "logo_url": "https://example.com/soundscale-logo.png"
   },
+  "product_brand": null,
+  "brand_strategy": "store_dominant",
   "channel": {
     "platform": "Instagram",
     "placement": "Feed",
@@ -498,14 +551,58 @@ flowchart TD
 }
 ```
 
-### Example Output (One ICP Path)
+### Example 2: Multi-Brand Retailer (Store ≠ Product Brand)
+
+```json
+{
+  "product": {
+    "name": "Sony WH-1000XM5 Wireless Headphones",
+    "description": "Industry-leading noise cancellation with 30-hour battery",
+    "features": ["Adaptive ANC", "30hr battery", "Multipoint connection", "Speak-to-Chat"],
+    "price": { "value": 399, "currency": "USD", "compare_at_price": 449 },
+    "category": "Electronics > Audio > Headphones"
+  },
+  "store_brand": {
+    "brand_name": "TechMart",
+    "brand_voice": "Friendly, helpful, value-focused",
+    "tone_keywords": ["approachable", "trustworthy", "expert"],
+    "color_palette": { "primary": "#0066CC", "accent": "#FF6600" },
+    "logo_url": "https://example.com/techmart-logo.png"
+  },
+  "product_brand": {
+    "brand_name": "Sony",
+    "brand_voice": "Innovative, premium, professional",
+    "tone_keywords": ["cutting-edge", "quality", "precision"],
+    "color_palette": { "primary": "#000000", "accent": "#0072CE" },
+    "logo_url": "https://example.com/sony-logo.png"
+  },
+  "brand_strategy": "product_dominant",
+  "channel": {
+    "platform": "Facebook",
+    "placement": "Feed",
+    "dimensions": { "width": 1200, "height": 628 },
+    "text_constraints": { "headline_max_chars": 50, "body_max_chars": 150, "cta_max_chars": 25 }
+  }
+}
+```
+
+### Example Output (DTC, One ICP Path)
 
 **ICP:** "Remote Work Professional"  
 **Strategy:** Position as productivity tool, pain point is Zoom fatigue  
 **Concept:** Split-screen showing chaotic open office vs. serene focus with headphones  
 **Copy:** Headline: "Your Focus, Engineered" | CTA: "Shop Now"  
 **Scene:** Minimalist workspace, soft lighting, headphones as hero object  
-**Final Ad:** Composed image with headline overlay and CTA button
+**Final Ad:** Composed image with SoundScale branding, headline overlay, and CTA button
+
+### Example Output (Multi-Brand Retailer, One ICP Path)
+
+**ICP:** "Audiophile Upgrader"  
+**Strategy:** Position as ultimate upgrade, pain point is subpar audio quality  
+**Concept:** Hero product shot with premium aesthetic, sound waves visualization  
+**Copy:** Headline: "Hear What You've Been Missing" | CTA: "Shop at TechMart"  
+**Scene:** Dark gradient background with subtle sound wave graphics  
+**Final Ad:** Sony branding dominant, "Available at TechMart" in corner, product hero shot
 
 ---
 

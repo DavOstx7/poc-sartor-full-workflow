@@ -1,6 +1,6 @@
 # Sartor Ad Engine: Project Roadmap
 
-> **Version:** 1.0  
+> **Version:** 1.1  
 > **Date:** 2026-01-09  
 > **Status:** Active Development  
 
@@ -9,7 +9,10 @@
 ## Project Context
 
 **What We're Building:**  
-An automated multi-agent system that takes an eCommerce product as input and generates high-fidelity static advertisements personalized for distinct customer segments (ICPs).
+An automated multi-agent system that generates high-fidelity static advertisements for **eCommerce products** personalized for distinct customer segments (ICPs).
+
+> [!NOTE]
+> **Scope:** Physical goods sold via eCommerce (DTC brands, online retailers, marketplaces). SaaS, services, and digital-only products are out of scope.
 
 **Core Architecture:**  
 5 LLM agents + 1 deterministic composition module, orchestrated via LangGraph:
@@ -24,6 +27,7 @@ Product Input → Segmentation → Strategy → Concept → Copy → Design → 
 3. Actual product images from catalog (not AI-generated products)
 4. Deterministic text/product composition (not image-gen rendered text)
 5. ICP-parallel, step-sequential processing
+6. **Flexible brand model** (supports DTC single-brand and multi-brand retailers with explicit brand strategy)
 
 **Reference Document:**  
 [`project_architecture.md`](file:///C:/Users/DELL/Documents/poc-sartor-full-workflow/project_architecture.md) — The authoritative technical specification. Read this first in any session.
@@ -68,11 +72,11 @@ Before starting development phases, ensure access to:
 **Deliverable:** [`project_architecture.md`](file:///C:/Users/DELL/Documents/poc-sartor-full-workflow/project_architecture.md)
 
 This document defines:
-- System input schemas (Product, Brand, Channel, Store Context)
+- System input schemas (Product, Store Brand, Product Brand, Brand Strategy, Channel, Store Context)
 - Agent definitions with missions, inputs, outputs, and JSON schemas
 - State management strategy
 - Technical stack recommendations
-- Key architectural decisions with rationale
+- Key architectural decisions with rationale (including brand flexibility)
 
 ---
 
@@ -103,10 +107,11 @@ Create production-quality system prompts for each of the 5 agents that will reli
 
 1. **Schema Enforcement:** Prompts must instruct the LLM to output valid JSON matching the defined schemas
 2. **Role Clarity:** Each agent must understand its specific mission and boundaries (no overlap)
-3. **Context Utilization:** Prompts must reference the accumulated state (product, brand, ICP, prior outputs)
+3. **Context Utilization:** Prompts must reference the accumulated state (product, store brand, product brand, brand strategy, ICP, prior outputs)
 4. **Quality Guardrails:** Include constraints to prevent generic, off-brand, or hallucinated outputs
-5. **Tone Adaptation:** Copy and Strategy prompts must adapt tone based on ICP preferences
+5. **Tone Adaptation:** Copy and Strategy prompts must adapt tone based on ICP preferences AND brand strategy (which brand dominates)
 6. **LangChain Compatibility:** Prompts should be designed for use with LangChain's `with_structured_output()` pattern
+7. **Brand Strategy Awareness:** Prompts must handle all three brand strategies (store_dominant, product_dominant, co_branded) appropriately
 
 > [!IMPORTANT]
 > **Design Agent is different.** Unlike agents 1-4, the Design Agent uses an **image generation prompt template** (for Imagen/Flux), not an LLM system prompt. This is scene-description prompting, not instruction prompting. Handle it separately.
@@ -142,7 +147,7 @@ Create the foundational project structure, shared models, configuration, and dep
 | Deliverable | Description |
 |-------------|-------------|
 | `pyproject.toml` or `requirements.txt` | Dependencies (langchain, langgraph, pydantic, pillow, etc.) |
-| `src/models/` | Pydantic models for all schemas (Product, Brand, ICP, StrategicBrief, etc.) |
+| `src/models/` | Pydantic models for all schemas (Product, StoreBrand, ProductBrand, BrandStrategy, ICP, StrategicBrief, etc.) |
 | `src/state.py` | `AdCreationState` dataclass for LangGraph state management |
 | `src/config.py` | Configuration (API keys, model names, paths) |
 | `src/utils/` | Shared utilities (LLM factory, image handling, etc.) |
@@ -156,7 +161,8 @@ Create the foundational project structure, shared models, configuration, and dep
 2. **Type Safety:** Full type hints throughout
 3. **Configuration:** API keys and model names must be configurable (env vars or config file)
 4. **LangGraph Compatibility:** State object must be compatible with LangGraph's state management
-5. **Sample Data:** Include at least 2 sample product inputs with realistic data
+5. **Sample Data:** Include at least 2 sample product inputs with realistic data (one DTC, one multi-brand retailer)
+6. **Brand Model:** `BrandContext` model should be reusable for both `store_brand` and `product_brand` fields
 
 ### Success Criteria
 
@@ -205,10 +211,10 @@ Implement each of the 5 agents as LangGraph-compatible nodes that consume state,
 | Agent | Special Considerations |
 |-------|------------------------|
 | **Segmentation** | May need web search tool for market research |
-| **Strategy** | Runs once per ICP (loop over ICPs) |
-| **Concept** | Must output `product_placement` directives for Composition |
-| **Copy** | Must enforce character limits from `channel.text_constraints` |
-| **Design** | Calls image generation API (Imagen/Flux), returns image path |
+| **Strategy** | Runs once per ICP (loop over ICPs); must respect `brand_strategy` for tone |
+| **Concept** | Must output `product_placement` directives for Composition; visual style from dominant brand |
+| **Copy** | Must enforce character limits from `channel.text_constraints`; voice from dominant brand |
+| **Design** | Calls image generation API (Imagen/Flux), returns image path; aesthetic from dominant brand |
 
 ### Success Criteria
 
@@ -251,10 +257,13 @@ Implement the deterministic Composition Module that combines the background scen
    - Place according to `concept.product_placement` directives
 
 2. **Text Rendering:**
-   - Render headline, body, CTA with brand fonts and colors
+   - Render headline, body, CTA with brand fonts and colors (from **dominant brand** per `brand_strategy`)
    - Respect layout archetype positioning
    - Handle text wrapping for long copy
-   - Add logo from brand assets
+   - Add logo(s) based on `brand_strategy`:
+     - `store_dominant`: Store logo prominent
+     - `product_dominant`: Product brand logo prominent, "Available at [Store]" text
+     - `co_branded`: Both logos visible
 
 3. **Output:**
    - Export final image at exact `channel.dimensions`
