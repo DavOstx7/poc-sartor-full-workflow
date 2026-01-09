@@ -149,7 +149,7 @@ class TestAgentOutputModels:
             communication_preferences={
                 "tone": "Professional",
                 "vocabulary_level": "Technical",
-                "responds_to": ["data", "social proof"],
+                "responds_to": ["data_and_specs", "social_proof"],
             },
         )
         assert icp.icp_id == "icp-001"

@@ -10,7 +10,15 @@ from pydantic import BaseModel, Field
 
 
 # Types of appeals that resonate with customers
-AppealType = Literal["emotional appeals", "data", "social proof", "urgency"]
+# Expanded from architecture to include additional appeal types from Phase 1 prompts
+AppealType = Literal[
+    "emotional_appeals",
+    "data_and_specs",
+    "social_proof",
+    "urgency",
+    "exclusivity",
+    "value_proposition",
+]
 
 
 class Demographic(BaseModel):
