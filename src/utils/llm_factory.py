@@ -5,13 +5,27 @@ Provides factory functions to create LangChain LLM clients
 based on model name prefixes.
 """
 
+from typing import Literal
+
 from langchain_core.language_models import BaseChatModel
 
 from src.config import get_settings
 
 
+# Agent name type for type safety
+AgentName = Literal["segmentation", "strategy", "concept", "copy"]
+
+# Per-agent default temperatures based on task requirements
+AGENT_TEMPERATURES: dict[AgentName, float] = {
+    "segmentation": 0.3,  # Analytical, deterministic
+    "strategy": 0.5,      # Balanced reasoning
+    "concept": 0.8,       # Creative ideation
+    "copy": 0.6,          # Creative but controlled
+}
+
+
 def create_llm(
-    model_name: str | None = None,
+    model_name: str,
     temperature: float = 0.7,
     **kwargs,
 ) -> BaseChatModel:
@@ -23,8 +37,9 @@ def create_llm(
     - Claude models (prefix: "claude")
     
     Args:
-        model_name: Model identifier (e.g., "gemini-2.0-flash", "claude-sonnet-4-20250514")
-        temperature: Sampling temperature (0.0 - 1.0)
+        model_name: Model identifier (e.g., "gemini-2.0-flash", "claude-sonnet-4-20250514").
+                    Required - use create_llm_for_agent() for agent-specific defaults.
+        temperature: Sampling temperature (0.0 - 1.0). Default: 0.7
         **kwargs: Additional arguments passed to the LLM constructor
     
     Returns:
@@ -34,9 +49,6 @@ def create_llm(
         ValueError: If model_name is unrecognized or API key is missing
     """
     settings = get_settings()
-
-    if model_name is None:
-        model_name = settings.strategy_model  # Default to strategy model
 
     if model_name.startswith("gemini"):
         if not settings.google_api_key:
@@ -71,20 +83,36 @@ def create_llm(
         )
 
 
-def create_llm_for_agent(agent_name: str, **kwargs) -> BaseChatModel:
+def create_llm_for_agent(
+    agent_name: AgentName,
+    temperature: float | None = None,
+    **kwargs,
+) -> BaseChatModel:
     """
     Create an LLM client for a specific agent using configured model names.
     
+    Uses agent-specific default temperatures optimized for each task type:
+    - segmentation: 0.3 (analytical)
+    - strategy: 0.5 (balanced)
+    - concept: 0.8 (creative)
+    - copy: 0.6 (creative but controlled)
+    
+    Note: The 'design' agent is excluded as it uses image generation, not LLM.
+    
     Args:
         agent_name: One of 'segmentation', 'strategy', 'concept', 'copy'
+        temperature: Override default temperature. If None, uses agent-specific default.
         **kwargs: Additional arguments passed to create_llm
     
     Returns:
         Configured LangChain chat model for the specified agent
+    
+    Raises:
+        ValueError: If agent_name is not recognized
     """
     settings = get_settings()
 
-    model_mapping = {
+    model_mapping: dict[AgentName, str] = {
         "segmentation": settings.segmentation_model,
         "strategy": settings.strategy_model,
         "concept": settings.concept_model,
@@ -97,4 +125,12 @@ def create_llm_for_agent(agent_name: str, **kwargs) -> BaseChatModel:
             f"Valid agents: {list(model_mapping.keys())}"
         )
 
-    return create_llm(model_name=model_mapping[agent_name], **kwargs)
+    # Use provided temperature or fall back to agent-specific default
+    temp = temperature if temperature is not None else AGENT_TEMPERATURES[agent_name]
+
+    return create_llm(
+        model_name=model_mapping[agent_name],
+        temperature=temp,
+        **kwargs,
+    )
+
