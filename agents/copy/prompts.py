@@ -247,6 +247,8 @@ USER_MESSAGE_TEMPLATE = """
 
 ## Strategic Brief
 
+**Positioning:** {positioning_statement}
+
 **Key Benefit:** {key_benefit}
 **Proof Point:** {proof_point}
 **Emotional Appeal:** {emotional_appeal}
@@ -360,6 +362,7 @@ def format_user_message(
         icp_responds_to=", ".join(comm.get("responds_to", [])),
         icp_motivators=", ".join(behavioral.get("purchase_motivators", [])[:3]),
         icp_objections=", ".join(behavioral.get("objections", [])[:3]),
+        positioning_statement=strategy.get("positioning_statement", "N/A"),
         key_benefit=strategy.get("key_benefit", "N/A"),
         proof_point=strategy.get("proof_point", "N/A"),
         emotional_appeal=strategy.get("emotional_appeal", "N/A"),
