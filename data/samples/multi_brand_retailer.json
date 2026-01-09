@@ -1,0 +1,100 @@
+{
+    "product": {
+        "product_id": "SKU-SONY-WH1000XM5",
+        "name": "Sony WH-1000XM5 Wireless Headphones",
+        "description": "Industry-leading noise cancellation with Auto NC Optimizer. Exceptional sound quality with newly developed drivers and 30-hour battery life. Designed for the ultimate listening experience.",
+        "features": [
+            "Industry-leading noise cancellation",
+            "30-hour battery life",
+            "Multipoint Bluetooth connection",
+            "Speak-to-Chat auto-pause",
+            "Adaptive Sound Control",
+            "Hi-Res Audio certified",
+            "8 microphones for calls"
+        ],
+        "benefits": [
+            "Silence distractions anywhere you go",
+            "Seamlessly switch between devices",
+            "Natural conversation without removing headphones",
+            "Sound that adapts to your environment"
+        ],
+        "price": {
+            "value": 399.00,
+            "currency": "USD",
+            "compare_at_price": 449.00
+        },
+        "category": "Electronics > Audio > Headphones",
+        "images": [
+            "https://example.com/products/sony-wh1000xm5-black.jpg",
+            "https://example.com/products/sony-wh1000xm5-lifestyle.jpg"
+        ],
+        "metadata": {
+            "brand": "Sony",
+            "color": "Black",
+            "model_year": 2024
+        }
+    },
+    "store_brand": {
+        "brand_name": "TechMart",
+        "brand_voice": "Friendly, helpful, and value-focused. We're the trusted experts who help you find the right tech for your needs without the jargon.",
+        "tone_keywords": [
+            "approachable",
+            "trustworthy",
+            "expert",
+            "helpful"
+        ],
+        "visual_style": "Bright, clean, product-focused displays. Blue and orange accent colors. Clear pricing and feature callouts. Approachable and organized.",
+        "color_palette": {
+            "primary": "#0066CC",
+            "secondary": "#003D7A",
+            "accent": "#FF6600",
+            "background": "#FFFFFF"
+        },
+        "logo_url": "https://example.com/brands/techmart-logo.png",
+        "tagline": "Your Tech, Your Way."
+    },
+    "product_brand": {
+        "brand_name": "Sony",
+        "brand_voice": "Innovative, premium, and professional. We push the boundaries of technology to create experiences that inspire emotion.",
+        "tone_keywords": [
+            "cutting-edge",
+            "quality",
+            "precision",
+            "immersive"
+        ],
+        "visual_style": "Sleek, dark gradients with product hero shots. Cinematic feel with dramatic lighting. Premium and aspirational.",
+        "color_palette": {
+            "primary": "#000000",
+            "secondary": "#1A1A1A",
+            "accent": "#0072CE",
+            "background": "#000000"
+        },
+        "logo_url": "https://example.com/brands/sony-logo.png",
+        "tagline": "Be Moved."
+    },
+    "brand_strategy": "product_dominant",
+    "channel": {
+        "platform": "Facebook",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1200,
+            "height": 628
+        },
+        "text_constraints": {
+            "headline_max_chars": 50,
+            "body_max_chars": 150,
+            "cta_max_chars": 25
+        },
+        "audience_context": "Broad consumer electronics shoppers, ages 25-55. Mix of tech enthusiasts and mainstream consumers looking for quality audio. Price-conscious but willing to pay for recognized brands."
+    },
+    "store_context": {
+        "customer_summary": "Value-conscious tech shoppers looking for deals on trusted brands. Customers research online before purchasing and appreciate expert guidance.",
+        "price_positioning": "mid-range",
+        "competitors": [
+            "Best Buy",
+            "Amazon",
+            "Walmart",
+            "B&H Photo"
+        ]
+    }
+}

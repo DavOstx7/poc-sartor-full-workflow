@@ -1,0 +1,81 @@
+{
+    "product": {
+        "product_id": "SKU-AF-PRO-001",
+        "name": "AeroFlow Pro Wireless Headphones",
+        "description": "Premium active noise-canceling headphones with 40-hour battery life. Engineered for professionals who demand exceptional audio quality and all-day comfort. Features advanced hybrid ANC technology that adapts to your environment.",
+        "features": [
+            "Hybrid Active Noise Cancellation",
+            "40-hour battery life",
+            "Bluetooth 5.3 with multipoint",
+            "Lightweight titanium frame (250g)",
+            "Premium memory foam ear cushions",
+            "USB-C fast charging (10min = 3hrs)"
+        ],
+        "benefits": [
+            "Immersive sound isolation for deep focus",
+            "All-day listening without recharging",
+            "Crystal-clear calls with 4-mic array",
+            "Comfortable enough for 8-hour workdays"
+        ],
+        "price": {
+            "value": 349.00,
+            "currency": "USD"
+        },
+        "category": "Electronics > Audio > Headphones",
+        "images": [
+            "https://example.com/products/aeroflow-pro-hero.jpg",
+            "https://example.com/products/aeroflow-pro-side.jpg",
+            "https://example.com/products/aeroflow-pro-case.jpg"
+        ],
+        "metadata": {
+            "sku": "AF-PRO-001",
+            "weight_grams": 250,
+            "warranty_years": 2
+        }
+    },
+    "store_brand": {
+        "brand_name": "SoundScale",
+        "brand_voice": "Premium, tech-forward, minimalist. We speak to discerning professionals who appreciate precision engineering and understated elegance.",
+        "tone_keywords": [
+            "confident",
+            "innovative",
+            "refined",
+            "precise"
+        ],
+        "visual_style": "Clean lines, dark backgrounds, bold typography. Product-focused imagery with subtle gradient accents. Minimal clutter, maximum impact.",
+        "color_palette": {
+            "primary": "#1A1A2E",
+            "secondary": "#16213E",
+            "accent": "#E94560",
+            "background": "#0F0F1A"
+        },
+        "logo_url": "https://example.com/brands/soundscale-logo.png",
+        "tagline": "Sound, Perfected."
+    },
+    "product_brand": null,
+    "brand_strategy": "store_dominant",
+    "channel": {
+        "platform": "Instagram",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1080,
+            "height": 1080
+        },
+        "text_constraints": {
+            "headline_max_chars": 40,
+            "body_max_chars": 125,
+            "cta_max_chars": 20
+        },
+        "audience_context": "Tech-savvy millennials and Gen-Z professionals interested in premium audio, productivity tools, and work-from-home setups. High engagement with minimalist design aesthetics."
+    },
+    "store_context": {
+        "customer_summary": "Audiophiles, remote workers, and professionals seeking premium audio equipment. Customers value quality over price and make considered purchases.",
+        "price_positioning": "premium",
+        "competitors": [
+            "Bose",
+            "Sony",
+            "Apple",
+            "Sennheiser"
+        ]
+    }
+}
