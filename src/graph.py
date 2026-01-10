@@ -11,6 +11,7 @@ Workflow Structure:
     for each ICP in parallel.
 """
 
+import asyncio
 import logging
 import time
 from pathlib import Path
@@ -253,9 +254,9 @@ def _run_composition(
         remove_product_bg=True,
     )
     
-    # Run compositor
+    # Run compositor (async method called synchronously)
     compositor = Compositor()
-    result = compositor.compose(composition_input)
+    result = asyncio.run(compositor.compose(composition_input))
     
     return result
 
