@@ -1,0 +1,101 @@
+{
+    "product": {
+        "product_id": "SKU-WOODLAND-AMBER-001",
+        "name": "Amber & Cedar Soy Candle",
+        "description": "Hand-poured soy candle crafted in small batches in Vermont. Features a complex fragrance of warm amber, smoky cedarwood, and hints of vanilla bean. Each candle is made with 100% natural soy wax and cotton wicks for a clean, even burn.",
+        "features": [
+            "100% natural soy wax",
+            "Hand-poured in Vermont",
+            "50+ hour burn time",
+            "Cotton wick (lead-free)",
+            "Reusable artisan ceramic vessel",
+            "Phthalate-free fragrance oils",
+            "8 oz (227g) size"
+        ],
+        "benefits": [
+            "Creates warm, inviting atmosphere",
+            "Clean burn with no black soot",
+            "Long-lasting fragrance throw",
+            "Beautiful vessel for reuse after burning"
+        ],
+        "price": {
+            "value": 45.00,
+            "currency": "USD"
+        },
+        "category": "Home > Decor > Candles",
+        "images": [
+            "https://example.com/products/woodland-amber-hero.jpg",
+            "https://example.com/products/woodland-amber-lit.jpg",
+            "https://example.com/products/woodland-amber-lifestyle.jpg"
+        ],
+        "metadata": {
+            "sku": "WOODLAND-AMBER-001",
+            "weight_oz": 8,
+            "burn_hours": 50,
+            "made_in": "Vermont, USA"
+        }
+    },
+    "store_brand": {
+        "brand_name": "Hearth & Home Co.",
+        "brand_voice": "Warm, welcoming, and curated. We help you create a home that feels like a sanctuary. Every product is chosen with care, quality, and your comfort in mind.",
+        "tone_keywords": [
+            "warm",
+            "curated",
+            "inviting",
+            "trusted"
+        ],
+        "visual_style": "Warm neutrals with terracotta and sage accents. Soft natural lighting. Cozy textures like linen, wood, and ceramic. Clean but warm typography.",
+        "color_palette": {
+            "primary": "#8B7355",
+            "secondary": "#D4C4B5",
+            "accent": "#C67C4E",
+            "background": "#F5F0EB"
+        },
+        "logo_url": "https://example.com/brands/hearth-home-logo.png",
+        "tagline": "Make Yourself at Home"
+    },
+    "product_brand": {
+        "brand_name": "Woodland Craft Co.",
+        "brand_voice": "Artisanal, authentic, rooted in nature. We handcraft small-batch goods using time-honored techniques and sustainably sourced materials. Every piece tells a story.",
+        "tone_keywords": [
+            "artisanal",
+            "authentic",
+            "rustic",
+            "sustainable"
+        ],
+        "visual_style": "Rustic and handmade aesthetic. Wood grain textures, linen backgrounds. Soft, natural photography. Hand-drawn typography elements.",
+        "color_palette": {
+            "primary": "#5D4E37",
+            "secondary": "#A89880",
+            "accent": "#D4A574",
+            "background": "#F8F4EF"
+        },
+        "logo_url": "https://example.com/brands/woodland-craft-logo.png",
+        "tagline": "Handmade with Heart"
+    },
+    "brand_strategy": "product_dominant",
+    "channel": {
+        "platform": "Facebook",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1200,
+            "height": 628
+        },
+        "text_constraints": {
+            "headline_max_chars": 50,
+            "body_max_chars": 150,
+            "cta_max_chars": 25
+        },
+        "audience_context": "Homeowners aged 30-55 interested in home decor, cozy living, and sustainable products. Value quality craftsmanship and supporting small makers."
+    },
+    "store_context": {
+        "customer_summary": "Home decor enthusiasts who appreciate curated, quality goods. They prefer unique, artisanal products over mass-produced items and value sustainability.",
+        "price_positioning": "mid-range",
+        "competitors": [
+            "Anthropologie",
+            "West Elm",
+            "Schoolhouse",
+            "Etsy sellers"
+        ]
+    }
+}

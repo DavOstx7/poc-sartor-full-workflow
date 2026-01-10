@@ -1,0 +1,83 @@
+{
+    "product": {
+        "product_id": "SKU-LUM-SERUM-001",
+        "name": "Lumière Renewal Serum",
+        "description": "Luxurious anti-aging serum combining pharmaceutical-grade retinol with stabilized vitamin C. Clinically proven to reduce fine lines by 47% in 8 weeks. Formulated in our Paris laboratories with rare botanical extracts.",
+        "features": [
+            "0.5% Encapsulated Retinol",
+            "15% Stabilized Vitamin C",
+            "Hyaluronic Acid Complex",
+            "Rose Hip Seed Oil",
+            "Peptide Blend (Matrixyl 3000)",
+            "Airless pump bottle (30ml)",
+            "Dermatologist tested"
+        ],
+        "benefits": [
+            "Visibly reduces fine lines and wrinkles",
+            "Brightens and evens skin tone",
+            "Deeply hydrates for 24 hours",
+            "Firms and plumps skin texture"
+        ],
+        "price": {
+            "value": 195.00,
+            "currency": "USD"
+        },
+        "category": "Beauty > Skincare > Serums",
+        "images": [
+            "https://example.com/products/lumiere-serum-hero.jpg",
+            "https://example.com/products/lumiere-serum-texture.jpg",
+            "https://example.com/products/lumiere-serum-lifestyle.jpg"
+        ],
+        "metadata": {
+            "sku": "LUM-SERUM-001",
+            "volume_ml": 30,
+            "shelf_life_months": 12,
+            "origin": "France"
+        }
+    },
+    "store_brand": {
+        "brand_name": "Lumière Paris",
+        "brand_voice": "Elegant, scientific luxury. We blend French artistry with clinical precision to create skincare that transforms. Our heritage is rooted in Parisian beauty traditions.",
+        "tone_keywords": [
+            "elegant",
+            "luxurious",
+            "scientific",
+            "aspirational"
+        ],
+        "visual_style": "Soft gold and cream palette. Elegant serif typography. Soft, diffused lighting with golden hour warmth. Marble and silk textures. Parisian sophistication.",
+        "color_palette": {
+            "primary": "#C9A962",
+            "secondary": "#2C2C2C",
+            "accent": "#E8D5B7",
+            "background": "#FAF8F5"
+        },
+        "logo_url": "https://example.com/brands/lumiere-paris-logo.png",
+        "tagline": "The Science of Radiance"
+    },
+    "product_brand": null,
+    "brand_strategy": "store_dominant",
+    "channel": {
+        "platform": "Instagram",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1080,
+            "height": 1080
+        },
+        "text_constraints": {
+            "headline_max_chars": 40,
+            "body_max_chars": 125,
+            "cta_max_chars": 20
+        },
+        "audience_context": "Affluent women aged 35-55 invested in premium skincare. Value clinically-proven results and luxurious experiences. Follow beauty influencers and dermatologists."
+    },
+    "store_context": {
+        "customer_summary": "Discerning women seeking effective, luxury skincare. They research ingredients, read reviews, and are willing to invest in proven formulations.",
+        "price_positioning": "luxury",
+        "competitors": [
+            "La Mer",
+            "SK-II",
+            "Augustinus Bader",
+            "Drunk Elephant"
+        ]
+    }
+}

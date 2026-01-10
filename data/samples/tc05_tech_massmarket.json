@@ -1,0 +1,102 @@
+{
+    "product": {
+        "product_id": "SKU-FITPULSE-PRO-001",
+        "name": "FitPulse Pro Smartwatch",
+        "description": "Feature-packed fitness smartwatch that doesn't break the bank. Tracks 100+ workout types, monitors heart rate and sleep, and lasts 7 days on a single charge. Perfect for fitness enthusiasts who want smart features without the premium price.",
+        "features": [
+            "1.4\" AMOLED always-on display",
+            "Heart rate & SpO2 monitoring",
+            "GPS for outdoor workouts",
+            "100+ workout modes",
+            "7-day battery life",
+            "5ATM water resistance",
+            "iOS and Android compatible"
+        ],
+        "benefits": [
+            "Track all your fitness goals",
+            "Never miss a notification",
+            "Week-long battery for travel",
+            "Swim, shower, and sweat worry-free"
+        ],
+        "price": {
+            "value": 149.00,
+            "currency": "USD",
+            "compare_at_price": 179.00
+        },
+        "category": "Electronics > Wearables > Smartwatches",
+        "images": [
+            "https://example.com/products/fitpulse-pro-hero.jpg",
+            "https://example.com/products/fitpulse-pro-workout.jpg",
+            "https://example.com/products/fitpulse-pro-lifestyle.jpg"
+        ],
+        "metadata": {
+            "sku": "FITPULSE-PRO-001",
+            "color": "Midnight Green",
+            "band_material": "Silicone",
+            "display_size_inches": 1.4
+        }
+    },
+    "store_brand": {
+        "brand_name": "MegaElectronics",
+        "brand_voice": "Your trusted electronics expert. We make tech accessible with great prices, helpful advice, and hassle-free returns. No jargon, just the best deals.",
+        "tone_keywords": [
+            "approachable",
+            "value-focused",
+            "trustworthy",
+            "helpful"
+        ],
+        "visual_style": "Bright, clean, product-focused. Blue and orange accent colors for trust and energy. Clear pricing callouts. Organized and approachable layout.",
+        "color_palette": {
+            "primary": "#0066CC",
+            "secondary": "#003D7A",
+            "accent": "#FF6600",
+            "background": "#FFFFFF"
+        },
+        "logo_url": "https://example.com/brands/megaelectronics-logo.png",
+        "tagline": "Great Tech, Great Prices"
+    },
+    "product_brand": {
+        "brand_name": "FitPulse",
+        "brand_voice": "Active, motivating, and accessible. We make fitness tech for real people with real goals. No intimidation, just results.",
+        "tone_keywords": [
+            "active",
+            "motivating",
+            "accessible",
+            "energetic"
+        ],
+        "visual_style": "Sporty and dynamic. Green and black palette. Action shots of real people working out. Clean, modern typography with motion elements.",
+        "color_palette": {
+            "primary": "#00A651",
+            "secondary": "#1A1A1A",
+            "accent": "#00D46A",
+            "background": "#F5F5F5"
+        },
+        "logo_url": "https://example.com/brands/fitpulse-logo.png",
+        "tagline": "Move More. Live Better."
+    },
+    "brand_strategy": "co_branded",
+    "channel": {
+        "platform": "Facebook",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1200,
+            "height": 628
+        },
+        "text_constraints": {
+            "headline_max_chars": 50,
+            "body_max_chars": 150,
+            "cta_max_chars": 25
+        },
+        "audience_context": "Broad consumer electronics shoppers aged 25-50. Mix of fitness enthusiasts and mainstream consumers. Price-conscious but seeking quality and features."
+    },
+    "store_context": {
+        "customer_summary": "Value-conscious tech shoppers looking for quality at fair prices. They compare specs, read reviews, and appreciate clear, honest product information.",
+        "price_positioning": "mid-range",
+        "competitors": [
+            "Best Buy",
+            "Amazon",
+            "Walmart",
+            "Target"
+        ]
+    }
+}

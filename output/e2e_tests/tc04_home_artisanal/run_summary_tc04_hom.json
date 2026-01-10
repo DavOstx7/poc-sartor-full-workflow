@@ -1,0 +1,20 @@
+{
+  "run_id": "tc04_home_artisanal",
+  "timestamp": "2026-01-10T17:50:57.238345",
+  "elapsed_seconds": 0.0,
+  "product_name": "Amber & Cedar Soy Candle",
+  "store_brand": "Hearth & Home Co.",
+  "brand_strategy": "product_dominant",
+  "icps_generated": 0,
+  "ads_generated": 0,
+  "errors_count": 1,
+  "icps": [],
+  "final_ads": {},
+  "errors": [
+    {
+      "agent": "segmentation",
+      "icp_id": null,
+      "message": "GOOGLE_API_KEY not set in environment"
+    }
+  ]
+}

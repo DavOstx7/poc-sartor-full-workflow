@@ -1,0 +1,90 @@
+{
+    "product": {
+        "product_id": "SKU-BLAZE-X1-001",
+        "name": "BLAZE X1 High-Top Sneakers",
+        "description": "Limited edition streetwear sneakers designed for those who refuse to blend in. Features our signature chunky sole, premium leather upper with mesh details, and reflective accents that pop under city lights. Only 2,000 pairs made.",
+        "features": [
+            "Premium leather and mesh upper",
+            "Chunky 5cm platform sole",
+            "3M reflective heel tab",
+            "Memory foam insole",
+            "Custom BLAZE lace locks",
+            "Limited run numbering",
+            "Glow-in-dark outsole accent"
+        ],
+        "benefits": [
+            "Stand out in any crowd",
+            "All-day comfort for urban exploration",
+            "Collector's edition for sneakerheads",
+            "Versatile styling from street to club"
+        ],
+        "price": {
+            "value": 189.00,
+            "currency": "USD"
+        },
+        "category": "Fashion > Footwear > Sneakers",
+        "images": [
+            "https://example.com/products/blaze-x1-hero.jpg",
+            "https://example.com/products/blaze-x1-detail.jpg",
+            "https://example.com/products/blaze-x1-lifestyle.jpg"
+        ],
+        "metadata": {
+            "sku": "BLAZE-X1-001",
+            "limited_edition": true,
+            "total_units": 2000,
+            "available_sizes": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+            ]
+        }
+    },
+    "store_brand": {
+        "brand_name": "BLAZE Athletics",
+        "brand_voice": "Bold, rebellious, unapologetic. We design for the rule-breakers, the night owls, the ones who set trends instead of following them. No apologies, just heat.",
+        "tone_keywords": [
+            "bold",
+            "rebellious",
+            "energetic",
+            "exclusive"
+        ],
+        "visual_style": "High contrast with neon accents on black. Urban grit meets futuristic edge. Dynamic angles, motion blur, street photography aesthetic. Bold sans-serif typography.",
+        "color_palette": {
+            "primary": "#000000",
+            "secondary": "#1A1A1A",
+            "accent": "#FF00FF",
+            "background": "#0A0A0A"
+        },
+        "logo_url": "https://example.com/brands/blaze-logo.png",
+        "tagline": "Drop Heat. Not Standards."
+    },
+    "product_brand": null,
+    "brand_strategy": "store_dominant",
+    "channel": {
+        "platform": "Instagram",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1080,
+            "height": 1080
+        },
+        "text_constraints": {
+            "headline_max_chars": 40,
+            "body_max_chars": 125,
+            "cta_max_chars": 20
+        },
+        "audience_context": "Gen-Z and young millennials (18-28) into streetwear, sneaker culture, and urban fashion. Active on Instagram and TikTok. Value exclusivity, self-expression, and being first to new drops."
+    },
+    "store_context": {
+        "customer_summary": "Sneakerheads and streetwear enthusiasts who camp for drops and flex on social. They value limited editions, hype, and being ahead of trends.",
+        "price_positioning": "mid-range",
+        "competitors": [
+            "Nike",
+            "Adidas",
+            "Off-White",
+            "Yeezy"
+        ]
+    }
+}

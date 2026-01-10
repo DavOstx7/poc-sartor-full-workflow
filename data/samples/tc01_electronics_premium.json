@@ -1,0 +1,83 @@
+{
+    "product": {
+        "product_id": "SKU-NOVA-ELITE-001",
+        "name": "Nova Elite Wireless Earbuds",
+        "description": "Premium true wireless earbuds with adaptive active noise cancellation and spatial audio. Crafted for discerning listeners who demand studio-quality sound in a compact form factor. Features our proprietary HiFi driver technology.",
+        "features": [
+            "Adaptive Active Noise Cancellation",
+            "Spatial Audio with head tracking",
+            "32-hour total battery (8hr buds + 24hr case)",
+            "Bluetooth 5.3 with multipoint",
+            "Titanium-coated 11mm drivers",
+            "IPX5 water resistance",
+            "Wireless charging case"
+        ],
+        "benefits": [
+            "Immersive 3D soundstage for music and movies",
+            "Block out distractions for deep work",
+            "All-day listening without recharging",
+            "Seamless switching between devices"
+        ],
+        "price": {
+            "value": 279.00,
+            "currency": "USD"
+        },
+        "category": "Electronics > Audio > Earbuds",
+        "images": [
+            "https://example.com/products/nova-elite-hero.jpg",
+            "https://example.com/products/nova-elite-case.jpg",
+            "https://example.com/products/nova-elite-lifestyle.jpg"
+        ],
+        "metadata": {
+            "sku": "NOVA-ELITE-001",
+            "weight_grams": 52,
+            "warranty_years": 2,
+            "color": "Midnight Black"
+        }
+    },
+    "store_brand": {
+        "brand_name": "NovaTech Audio",
+        "brand_voice": "Premium, tech-forward, minimalist. We create audio experiences for discerning listeners who appreciate precision engineering and understated sophistication.",
+        "tone_keywords": [
+            "premium",
+            "innovative",
+            "refined",
+            "precise"
+        ],
+        "visual_style": "Dark backgrounds with subtle gradients. Product-centric imagery with dramatic lighting. Clean typography, minimal clutter. Metallic accents on deep blacks.",
+        "color_palette": {
+            "primary": "#0D0D0D",
+            "secondary": "#1A1A1A",
+            "accent": "#C9A962",
+            "background": "#000000"
+        },
+        "logo_url": "https://example.com/brands/novatech-logo.png",
+        "tagline": "Sound Without Compromise"
+    },
+    "product_brand": null,
+    "brand_strategy": "store_dominant",
+    "channel": {
+        "platform": "Instagram",
+        "placement": "Feed",
+        "dimensions": {
+            "width": 1080,
+            "height": 1080
+        },
+        "text_constraints": {
+            "headline_max_chars": 40,
+            "body_max_chars": 125,
+            "cta_max_chars": 20
+        },
+        "audience_context": "Tech-savvy professionals and audiophiles aged 25-45. High disposable income, value premium quality over price. Interested in high-fidelity audio, productivity tools, and minimalist design."
+    },
+    "store_context": {
+        "customer_summary": "Audiophiles and professionals seeking premium audio equipment. Customers research extensively and value quality, durability, and sound performance over price.",
+        "price_positioning": "premium",
+        "competitors": [
+            "Apple AirPods Pro",
+            "Sony WF-1000XM5",
+            "Bose QuietComfort Ultra",
+            "Sennheiser Momentum"
+        ]
+    }
+}
