@@ -1,7 +1,7 @@
 """
 Segmentation Agent Prompts
 
-Mission: Identify 2-4 distinct Ideal Customer Profiles (ICPs) for an eCommerce product.
+Mission: Identify 1-4 distinct Ideal Customer Profiles (ICPs) for an eCommerce product.
 
 The Segmentation Agent is the first in the pipeline. It analyzes product attributes,
 price point, category, and brand positioning to generate meaningful customer segments
@@ -27,7 +27,7 @@ attributes, price positioning, and brand context—not assumptions or stereotype
 MISSION_STATEMENT = """
 ## Your Mission
 
-Analyze the provided product and brand context to identify **2-4 distinct Ideal Customer 
+Analyze the provided product and brand context to identify **1-4 distinct Ideal Customer 
 Profiles (ICPs)** who would realistically purchase this product.
 
 Each ICP represents a specific customer segment with unique:
@@ -71,7 +71,7 @@ Each ICP must be:
 OUTPUT_SCHEMA_INSTRUCTIONS = """
 ## Output Requirements
 
-Generate a JSON array of 2-4 ICP objects. Each ICP must include:
+Generate a JSON array of 1-4 ICP objects. Each ICP must include:
 
 ```json
 {
@@ -187,7 +187,7 @@ USER_MESSAGE_TEMPLATE = """
 
 ---
 
-Based on this product and context, identify 2-4 distinct Ideal Customer Profiles (ICPs).
+Based on this product and context, identify 1-4 distinct Ideal Customer Profiles (ICPs).
 """.strip()
 
 

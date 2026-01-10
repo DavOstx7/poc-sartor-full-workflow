@@ -1,7 +1,7 @@
 """
 Segmentation Agent implementation for Sartor Ad Engine.
 
-Mission: Identify 2-4 distinct Ideal Customer Profiles (ICPs) for an eCommerce product.
+Mission: Identify 1-4 distinct Ideal Customer Profiles (ICPs) for an eCommerce product.
 
 This is the first agent in the pipeline. It analyzes product attributes,
 price point, category, and brand positioning to generate meaningful customer
@@ -39,8 +39,8 @@ class SegmentationResponse(BaseModel):
     
     icps: list[ICP] = Field(
         ...,
-        description="List of 2-4 Ideal Customer Profiles",
-        min_length=2,
+        description="List of 1-4 Ideal Customer Profiles",
+        min_length=1,
         max_length=4,
     )
 
@@ -85,7 +85,7 @@ def run_segmentation_agent(state: AdCreationState) -> dict:
     """
     LangGraph node function for the Segmentation Agent.
     
-    Analyzes product and brand context to identify 2-4 distinct ICPs.
+    Analyzes product and brand context to identify 1-4 distinct ICPs.
     
     Args:
         state: The accumulated pipeline state containing product, brands,

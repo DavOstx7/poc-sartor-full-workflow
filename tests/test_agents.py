@@ -160,7 +160,7 @@ class TestSegmentationAgent:
         """Verify segmentation returns list of ICPs on successful LLM call."""
         from agents.segmentation.agent import SegmentationResponse, run_segmentation_agent
         
-        # Create a second ICP to meet min_length=2 requirement
+        # Create a second ICP to test multiple ICP handling
         mock_icp_2 = ICP(
             icp_id="test_icp_002",
             name="Budget Shopper",
