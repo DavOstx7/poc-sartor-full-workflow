@@ -182,7 +182,7 @@ Defines how store and product brands should be balanced in the ad creative.
 | Attribute | Specification |
 |-----------|---------------|
 | **Input** | Product Data, Store Brand, Product Brand (if applicable), Brand Strategy, Store Context |
-| **Output** | List of 2-4 ICPs with structured profiles |
+| **Output** | List of 1-4 ICPs with structured profiles |
 | **Tools** | Web search for market research |
 | **LLM** | High-reasoning model (e.g., Gemini 2.0 Flash Thinking) |
 
@@ -211,7 +211,7 @@ Defines how store and product brands should be balanced in the ad creative.
   "communication_preferences": {
     "tone": "string",
     "vocabulary_level": "string",
-    "responds_to": ["emotional appeals | data | social proof | urgency"]
+    "responds_to": ["emotional_appeals", "data_and_specs", "social_proof", "urgency", "exclusivity", "value_proposition"]
   }
 }
 ```
