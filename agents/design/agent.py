@@ -14,6 +14,8 @@ import logging
 from pathlib import Path
 from typing import Any
 
+from PIL import Image, ImageDraw
+
 from agents.common.agent_utils import (
     add_error_to_state,
     create_error,
@@ -53,6 +55,55 @@ def _generate_scene_filename(icp_id: str, run_id: str) -> str:
     return f"scene_{icp_id}_{run_id[:8]}.png"
 
 
+def _generate_fallback_background(
+    width: int,
+    height: int,
+    primary_color: str,
+) -> Image.Image:
+    """
+    Generate a gradient background from primary_color to a darker shade.
+    
+    Creates a vertical gradient for subtle visual interest. This is used
+    as a fallback when the image generation API is not available.
+    
+    Args:
+        width: Image width in pixels
+        height: Image height in pixels
+        primary_color: Hex color string (e.g., '#E94560')
+        
+    Returns:
+        PIL Image with gradient background
+    """
+    # Parse hex color to RGB with fallback
+    try:
+        hex_clean = primary_color.lstrip("#")
+        r, g, b = int(hex_clean[:2], 16), int(hex_clean[2:4], 16), int(hex_clean[4:6], 16)
+    except (ValueError, IndexError):
+        # Fallback to dark blue-gray if color parsing fails
+        r, g, b = 26, 26, 46  # #1a1a2e
+        logger.warning(f"Failed to parse color '{primary_color}', using fallback")
+    
+    # Create darker endpoint (30% of original brightness)
+    dark_r, dark_g, dark_b = int(r * 0.3), int(g * 0.3), int(b * 0.3)
+    
+    # Create gradient image
+    img = Image.new("RGB", (width, height))
+    draw = ImageDraw.Draw(img)
+    
+    for y in range(height):
+        # Calculate gradient ratio (vertical gradient, dark at top)
+        ratio = y / height
+        
+        # Interpolate colors
+        curr_r = int(dark_r + (r - dark_r) * ratio)
+        curr_g = int(dark_g + (g - dark_g) * ratio)
+        curr_b = int(dark_b + (b - dark_b) * ratio)
+        
+        draw.line([(0, y), (width, y)], fill=(curr_r, curr_g, curr_b))
+    
+    return img
+
+
 # =============================================================================
 # IMAGE GENERATION (STUB)
 # =============================================================================
@@ -60,12 +111,13 @@ def _generate_scene_filename(icp_id: str, run_id: str) -> str:
 def _call_image_generation_api(
     prompt_package: dict,
     output_path: Path,
+    primary_color: str = "#1a1a2e",
 ) -> ImageAsset:
     """
     Call the image generation API to create the scene.
     
-    NOTE: This is currently a STUB implementation. It logs the prompt
-    and creates a placeholder ImageAsset. To enable real image generation:
+    NOTE: This currently generates a fallback gradient background.
+    To enable real image generation:
     
     1. For Imagen 3: Integrate with Google Cloud Vertex AI
     2. For Flux: Integrate with Replicate or similar API
@@ -73,6 +125,7 @@ def _call_image_generation_api(
     Args:
         prompt_package: Dict with 'prompt', 'negative_prompt', 'width', 'height'
         output_path: Path where the generated image should be saved
+        primary_color: Brand primary color for fallback gradient
         
     Returns:
         ImageAsset with path and metadata
@@ -94,13 +147,20 @@ def _call_image_generation_api(
         logger.debug(f"Flux API payload: {api_payload}")
     
     # TODO: Actual API call would go here
-    # For now, we create a placeholder asset
+    # For now, generate a fallback gradient background
     
-    # Create placeholder file if it doesn't exist
     if not output_path.exists():
-        # Write a simple placeholder (empty file for now)
-        output_path.touch()
-        logger.warning(f"Created placeholder scene at {output_path}")
+        # Generate a gradient background using brand colors
+        fallback_img = _generate_fallback_background(
+            width=prompt_package["width"],
+            height=prompt_package["height"],
+            primary_color=primary_color,
+        )
+        fallback_img.save(output_path, "PNG")
+        logger.warning(
+            f"Generated fallback gradient background at {output_path} "
+            f"(API not integrated, using color: {primary_color})"
+        )
     
     return ImageAsset(
         path=str(output_path),
@@ -160,8 +220,9 @@ def generate_scene_for_icp(
     filename = _generate_scene_filename(icp.icp_id, run_id)
     output_path = output_dir / filename
     
-    # 5. Call image generation API
-    asset = _call_image_generation_api(prompt_package, output_path)
+    # 5. Call image generation API (with brand color for fallback)
+    primary_color = dominant_brand.color_palette.primary
+    asset = _call_image_generation_api(prompt_package, output_path, primary_color)
     
     # 6. Log output
     log_agent_call(agent_name, input_summary, asset)
