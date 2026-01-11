@@ -5,6 +5,8 @@ Provides factory functions to create LangChain LLM clients
 based on model name prefixes.
 """
 
+import time
+from threading import Lock
 from typing import Literal
 
 from langchain_core.language_models import BaseChatModel
@@ -22,6 +24,28 @@ AGENT_TEMPERATURES: dict[AgentName, float] = {
     "concept": 0.8,       # Creative ideation
     "copy": 0.6,          # Creative but controlled
 }
+
+
+class RateLimiter:
+    """
+    Thread-safe rate limiter for LLM API calls.
+    
+    Used to respect free tier limits. Set rpm=0 to disable.
+    Remove this class when upgrading to a paid tier.
+    """
+    _last_call: float = 0
+    _lock = Lock()
+    
+    @classmethod
+    def wait(cls, rpm: float) -> None:
+        if rpm <= 0:
+            return
+        interval = 60.0 / rpm
+        with cls._lock:
+            elapsed = time.time() - cls._last_call
+            if elapsed < interval:
+                time.sleep(interval - elapsed)
+            cls._last_call = time.time()
 
 
 def create_llm(
@@ -49,6 +73,9 @@ def create_llm(
         ValueError: If model_name is unrecognized or API key is missing
     """
     settings = get_settings()
+    
+    # Rate limit for free tier support (set rpm=0 to disable)
+    RateLimiter.wait(settings.llm_rate_limit_rpm)
 
     if model_name.startswith("gemini"):
         if not settings.google_api_key:

@@ -44,6 +44,7 @@ class Settings(BaseSettings):
 
     # === Pipeline Settings ===
     max_icps: int = 4  # Maximum ICPs from segmentation
+    llm_rate_limit_rpm: float = 5.0  # Requests per minute (0 = disabled)
 
     # === Debug Settings ===
     debug: bool = False
