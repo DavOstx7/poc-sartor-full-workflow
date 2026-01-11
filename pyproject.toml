@@ -20,7 +20,7 @@ dependencies = [
     # Image processing
     "pillow>=10.0.0",
     "httpx>=0.27.0",
-    "rembg>=2.0.0",  # Background removal for product images
+    "rembg[cpu]>=2.0.0",  # Background removal for product images
     
     # Configuration
     "python-dotenv>=1.0.0",
