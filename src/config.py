@@ -44,7 +44,6 @@ class Settings(BaseSettings):
 
     # === Pipeline Settings ===
     max_icps: int = 4  # Maximum ICPs from segmentation
-    parallel_icps: bool = True  # Process ICPs in parallel
 
     # === Debug Settings ===
     debug: bool = False

@@ -270,7 +270,8 @@ def route_to_icps(state: GraphState) -> list[Send]:
     Conditional edge function that fans out to process each ICP.
     
     After segmentation completes, this function creates a Send object
-    for each ICP, enabling parallel processing.
+    for each ICP, enabling parallel processing. Respects max_icps config
+    as a silent cap on the number of ICPs processed.
     
     Args:
         state: Current graph state with 'icps' populated
@@ -279,28 +280,31 @@ def route_to_icps(state: GraphState) -> list[Send]:
         List of Send objects, one per ICP, each routing to 'process_icp'
         with the current_icp_id set
     """
+    settings = get_settings()
     icps = state.get("icps", [])
     
     if not icps:
         logger.warning("[Router] No ICPs to process, ending workflow")
         return []
     
-    logger.info(f"[Router] Fanning out to {len(icps)} ICPs")
+    # Enforce max_icps limit (silent cap - prompts guide LLM, config limits processing)
+    if len(icps) > settings.max_icps:
+        logger.info(f"[Router] Capping ICPs: {len(icps)} → {settings.max_icps}")
+        icps = icps[:settings.max_icps]
+    
+    logger.info(f"[Router] Processing {len(icps)} ICPs")
     
     # Create a Send for each ICP
-    sends = []
-    for icp in icps:
-        sends.append(
-            Send(
-                "process_icp",
-                {
-                    **state,
-                    "current_icp_id": icp.icp_id,
-                }
-            )
+    return [
+        Send(
+            "process_icp",
+            {
+                **state,
+                "current_icp_id": icp.icp_id,
+            }
         )
-    
-    return sends
+        for icp in icps
+    ]
 
 
 # =============================================================================
