@@ -24,9 +24,9 @@
         },
         "category": "Beauty > Skincare > Serums",
         "images": [
-            "https://example.com/products/lumiere-serum-hero.jpg",
-            "https://example.com/products/lumiere-serum-texture.jpg",
-            "https://example.com/products/lumiere-serum-lifestyle.jpg"
+            "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800",
+            "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=800",
+            "https://images.unsplash.com/photo-1570194065650-d99fb4b38b15?w=800"
         ],
         "metadata": {
             "sku": "LUM-SERUM-001",

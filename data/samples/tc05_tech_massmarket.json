@@ -25,9 +25,9 @@
         },
         "category": "Electronics > Wearables > Smartwatches",
         "images": [
-            "https://example.com/products/fitpulse-pro-hero.jpg",
-            "https://example.com/products/fitpulse-pro-workout.jpg",
-            "https://example.com/products/fitpulse-pro-lifestyle.jpg"
+            "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800",
+            "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800",
+            "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=800"
         ],
         "metadata": {
             "sku": "FITPULSE-PRO-001",

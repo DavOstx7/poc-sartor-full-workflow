@@ -24,9 +24,9 @@
         },
         "category": "Fashion > Footwear > Sneakers",
         "images": [
-            "https://example.com/products/blaze-x1-hero.jpg",
-            "https://example.com/products/blaze-x1-detail.jpg",
-            "https://example.com/products/blaze-x1-lifestyle.jpg"
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
+            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800",
+            "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800"
         ],
         "metadata": {
             "sku": "BLAZE-X1-001",

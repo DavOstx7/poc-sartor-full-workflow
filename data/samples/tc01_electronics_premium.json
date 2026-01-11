@@ -24,9 +24,9 @@
         },
         "category": "Electronics > Audio > Earbuds",
         "images": [
-            "https://example.com/products/nova-elite-hero.jpg",
-            "https://example.com/products/nova-elite-case.jpg",
-            "https://example.com/products/nova-elite-lifestyle.jpg"
+            "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800",
+            "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=800",
+            "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=800"
         ],
         "metadata": {
             "sku": "NOVA-ELITE-001",

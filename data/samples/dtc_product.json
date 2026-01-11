@@ -23,9 +23,9 @@
         },
         "category": "Electronics > Audio > Headphones",
         "images": [
-            "https://example.com/products/aeroflow-pro-hero.jpg",
-            "https://example.com/products/aeroflow-pro-side.jpg",
-            "https://example.com/products/aeroflow-pro-case.jpg"
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+            "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800",
+            "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800"
         ],
         "metadata": {
             "sku": "AF-PRO-001",
