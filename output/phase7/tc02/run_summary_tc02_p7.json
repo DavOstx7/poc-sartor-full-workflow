@@ -1,0 +1,48 @@
+{
+  "run_id": "tc02_p7",
+  "timestamp": "2026-01-11T21:37:09.049529",
+  "elapsed_seconds": 67.25,
+  "product_name": "Lumi\u00e8re Renewal Serum",
+  "store_brand": "Lumi\u00e8re Paris",
+  "brand_strategy": "store_dominant",
+  "icps_generated": 3,
+  "ads_generated": 1,
+  "errors_count": 0,
+  "icps": [
+    {
+      "icp_id": "skincare_connoisseur",
+      "name": "The Skincare Connoisseur",
+      "has_strategy": true,
+      "has_concept": true,
+      "has_copy": true,
+      "has_scene": true,
+      "has_final_ad": true
+    },
+    {
+      "icp_id": "luxury_lifestyle_aficionado",
+      "name": "The Luxury Lifestyle Aficionado",
+      "has_strategy": false,
+      "has_concept": false,
+      "has_copy": false,
+      "has_scene": false,
+      "has_final_ad": false
+    },
+    {
+      "icp_id": "results_driven_professional",
+      "name": "The Results-Driven Professional",
+      "has_strategy": false,
+      "has_concept": false,
+      "has_copy": false,
+      "has_scene": false,
+      "has_final_ad": false
+    }
+  ],
+  "final_ads": {
+    "skincare_connoisseur": {
+      "path": "output\\ads\\ad_skincare_connoisseur_tc02_p7.png",
+      "width": 1080,
+      "height": 1080
+    }
+  },
+  "errors": []
+}

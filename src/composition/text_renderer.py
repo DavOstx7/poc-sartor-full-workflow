@@ -17,8 +17,15 @@ logger = logging.getLogger(__name__)
 # Font directory (relative to this file's package root)
 FONT_DIR = Path(__file__).parent.parent.parent / "assets" / "fonts"
 
-# Font file names
+# Font file names (primary: DejaVu Sans, fallback: Inter)
 FONT_FILES = {
+    "regular": "DejaVuSans.ttf",
+    "bold": "DejaVuSans-Bold.ttf",
+    "semibold": "DejaVuSans-Bold.ttf",  # DejaVu has no semibold, use bold
+}
+
+# Fallback font files (Inter if available)
+FALLBACK_FONT_FILES = {
     "regular": "Inter-Regular.ttf",
     "bold": "Inter-Bold.ttf",
     "semibold": "Inter-SemiBold.ttf",
@@ -33,7 +40,7 @@ def load_font(
     size: int = 24,
 ) -> ImageFont.FreeTypeFont:
     """
-    Load Inter font with fallback to default.
+    Load font with fallback chain: DejaVu -> Inter -> System -> Default.
     
     Args:
         weight: Font weight ('regular', 'bold', 'semibold')
@@ -42,24 +49,28 @@ def load_font(
     Returns:
         PIL ImageFont
     """
+    # Try primary fonts (DejaVu)
     font_file = FONT_DIR / FONT_FILES.get(weight, FONT_FILES["regular"])
-    
     try:
         if font_file.exists():
             return ImageFont.truetype(str(font_file), size)
     except Exception as e:
-        logger.warning(f"Failed to load font {font_file}: {e}")
+        logger.warning(f"Failed to load primary font {font_file}: {e}")
+    
+    # Try fallback fonts (Inter)
+    fallback_file = FONT_DIR / FALLBACK_FONT_FILES.get(weight, FALLBACK_FONT_FILES["regular"])
+    try:
+        if fallback_file.exists():
+            return ImageFont.truetype(str(fallback_file), size)
+    except Exception as e:
+        logger.warning(f"Failed to load fallback font {fallback_file}: {e}")
     
     # Fallback: try system fonts
-    try:
-        # Try common system fonts
-        for fallback in ["Arial.ttf", "DejaVuSans.ttf", "Helvetica.ttf"]:
-            try:
-                return ImageFont.truetype(fallback, size)
-            except OSError:
-                continue
-    except Exception:
-        pass
+    for system_font in ["Arial.ttf", "arial.ttf", "DejaVuSans.ttf", "Helvetica.ttf"]:
+        try:
+            return ImageFont.truetype(system_font, size)
+        except OSError:
+            continue
     
     # Ultimate fallback: default font (may be bitmap)
     logger.warning(f"Using default font (size may not apply correctly)")

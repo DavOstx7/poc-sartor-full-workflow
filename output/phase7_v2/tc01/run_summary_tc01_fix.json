@@ -1,0 +1,48 @@
+{
+  "run_id": "tc01_fix",
+  "timestamp": "2026-01-12T20:33:34.574627",
+  "elapsed_seconds": 69.19,
+  "product_name": "Nova Elite Wireless Earbuds",
+  "store_brand": "NovaTech Audio",
+  "brand_strategy": "store_dominant",
+  "icps_generated": 3,
+  "ads_generated": 1,
+  "errors_count": 0,
+  "icps": [
+    {
+      "icp_id": "productivity_pro",
+      "name": "Productivity-Focused Professional",
+      "has_strategy": true,
+      "has_concept": true,
+      "has_copy": true,
+      "has_scene": true,
+      "has_final_ad": true
+    },
+    {
+      "icp_id": "audiophile_enthusiast",
+      "name": "Discerning Audiophile & Entertainment Enthusiast",
+      "has_strategy": false,
+      "has_concept": false,
+      "has_copy": false,
+      "has_scene": false,
+      "has_final_ad": false
+    },
+    {
+      "icp_id": "active_urbanite",
+      "name": "Active & Connected Urbanite",
+      "has_strategy": false,
+      "has_concept": false,
+      "has_copy": false,
+      "has_scene": false,
+      "has_final_ad": false
+    }
+  ],
+  "final_ads": {
+    "productivity_pro": {
+      "path": "output\\ads\\ad_productivity_pro_tc01_fix.png",
+      "width": 1080,
+      "height": 1080
+    }
+  },
+  "errors": []
+}

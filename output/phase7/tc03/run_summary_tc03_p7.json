@@ -1,0 +1,39 @@
+{
+  "run_id": "tc03_p7",
+  "timestamp": "2026-01-11T21:38:29.433795",
+  "elapsed_seconds": 62.21,
+  "product_name": "BLAZE X1 High-Top Sneakers",
+  "store_brand": "BLAZE Athletics",
+  "brand_strategy": "store_dominant",
+  "icps_generated": 2,
+  "ads_generated": 1,
+  "errors_count": 0,
+  "icps": [
+    {
+      "icp_id": "hype_collector",
+      "name": "The Hype Collector",
+      "has_strategy": true,
+      "has_concept": true,
+      "has_copy": true,
+      "has_scene": true,
+      "has_final_ad": true
+    },
+    {
+      "icp_id": "urban_trendsetter",
+      "name": "The Urban Trendsetter",
+      "has_strategy": false,
+      "has_concept": false,
+      "has_copy": false,
+      "has_scene": false,
+      "has_final_ad": false
+    }
+  ],
+  "final_ads": {
+    "hype_collector": {
+      "path": "output\\ads\\ad_hype_collector_tc03_p7.png",
+      "width": 1080,
+      "height": 1080
+    }
+  },
+  "errors": []
+}

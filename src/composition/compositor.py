@@ -248,6 +248,7 @@ class Compositor:
                 input.store_brand.logo_url,
                 (x1, y1),
                 max_height=zone_height,
+                brand_name=input.store_brand.brand_name,
             )
         
         elif input.brand_strategy == "product_dominant" and input.product_brand:
@@ -257,6 +258,7 @@ class Compositor:
                 input.product_brand.logo_url,
                 (x1, y1),
                 max_height=zone_height,
+                brand_name=input.product_brand.brand_name,
             )
             
             # "Available at [Store]" text at bottom
@@ -281,6 +283,7 @@ class Compositor:
                 (x1, y1),
                 max_width=half_width - 10,
                 max_height=zone_height,
+                brand_name=input.store_brand.brand_name,
             )
             
             # Product logo on right (if exists)
@@ -291,6 +294,7 @@ class Compositor:
                     (x1 + half_width + 10, y1),
                     max_width=half_width - 10,
                     max_height=zone_height,
+                    brand_name=input.product_brand.brand_name,
                 )
         
         return canvas
@@ -298,13 +302,26 @@ class Compositor:
     async def _place_logo(
         self,
         canvas: Image.Image,
-        logo_source: str,
+        logo_source: str | None,
         position: tuple[int, int],
         max_width: int = None,
         max_height: int = None,
+        brand_name: str = None,
     ) -> Image.Image:
-        """Load and place a logo on the canvas."""
+        """Load and place a logo on the canvas. Falls back to text-based logo if loading fails."""
+        if not logo_source:
+            if brand_name:
+                return self._render_text_logo(canvas, brand_name, position, max_height)
+            return canvas
+            
         try:
+            # Skip known placeholder URLs
+            if "example.com" in logo_source or "placeholder" in logo_source.lower():
+                self.logger.debug(f"Skipping placeholder logo URL: {logo_source}")
+                if brand_name:
+                    return self._render_text_logo(canvas, brand_name, position, max_height)
+                return canvas
+            
             # Load logo
             if logo_source.startswith(("http://", "https://")):
                 logo = await load_product_image(logo_source)
@@ -320,7 +337,24 @@ class Compositor:
             
         except Exception as e:
             self.logger.warning(f"Failed to load logo from {logo_source}: {e}")
+            # Fallback to text-based logo
+            if brand_name:
+                return self._render_text_logo(canvas, brand_name, position, max_height)
         
+        return canvas
+    
+    def _render_text_logo(
+        self,
+        canvas: Image.Image,
+        brand_name: str,
+        position: tuple[int, int],
+        max_height: int = None,
+    ) -> Image.Image:
+        """Render brand name as a text-based logo fallback."""
+        draw = ImageDraw.Draw(canvas)
+        font_size = min(max_height or 30, 30)
+        font = load_font("bold", font_size)
+        draw.text(position, brand_name, font=font, fill="#FFFFFF")
         return canvas
     
     def _resize_to_fit(

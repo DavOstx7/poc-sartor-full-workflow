@@ -100,13 +100,26 @@ The CTA must be:
 - **Urgency:** Only if authentic (real deadline, limited stock); don't manufacture
 - **Legal:** Only if required (price disclaimers, terms)
 
-### Step 6: Character Count Verification
-Before finalizing, verify EVERY text element is within limits:
+### Step 6: Character Count Verification (CRITICAL)
+Before finalizing, you MUST verify EVERY text element is within limits:
 - Headline ≤ {headline_limit} characters
-- Body ≤ {body_limit} characters
+- Body ≤ {body_limit} characters  
 - CTA ≤ {cta_limit} characters
 
-This is a HARD CONSTRAINT. Count carefully.
+**Counting Method:**
+1. Write your copy
+2. Count EVERY character including spaces, punctuation, and emojis (count emojis as 2)
+3. If over limit, REWRITE shorter - do not submit over-limit copy
+
+**Example Character Count:**
+"Achieve deep focus." = 19 characters (count each letter, space, and period)
+
+**If body copy limit is 125 characters:**
+- SAFE: 100-115 characters (good margin)
+- RISKY: 116-125 characters (at limit)
+- FAIL: 126+ characters (MUST REWRITE SHORTER)
+
+This is a HARD CONSTRAINT. Exceeding limits is a critical failure.
 """.strip()
 
 
